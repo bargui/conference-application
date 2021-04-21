@@ -4,19 +4,19 @@
   become: true
   tasks:
     - name: upgrade all packages
-      yum:
+      apt:
         name: '*'
         state: latest
         exclude: kernel*
     - name: Add package epel-release
-      yum:
+      apt:
         name:
           - epel-release
         state: present
     - name: Install packages needed for docker and its ecosystem
-      yum:
+      apt:
         name:
-          - yum-utils
+          - apt-utils
           - device-mapper-persistent-data
           - lvm2
           - python3
@@ -26,9 +26,9 @@
           - iftop
         state: present
     - name: Set up a stable docker repository
-      command: yum-config-manager --add-repo https://download.docker.com/linux/ubuntu/docker-ce.repo
+      command: apt-config-manager --add-repo https://download.docker.com/linux/ubuntu/docker-ce.repo
     - name: Install docker packages
-      yum:
+      apt:
         name:
           - docker-ce
           - docker-ce-cli
